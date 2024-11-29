@@ -1,1 +1,47 @@
-<p>country-page works!</p>
+<ng-template #loading>
+  <div class="alert alert-warning">
+    Cargando...
+  </div>
+</ng-template>
+
+<div class="row" *ngIf="country; else loading">
+  <div class="col-12">
+    <h1>
+      {{ country?.name?.common | json }}
+    </h1>
+  </div>
+  <div class="col-4">
+    <h3>Bandera</h3>
+    <img [src]="country.flags.png" [alt]="country.name.common" class="img-thumbnail" />
+  </div>
+  <div class="col-8">
+    <h3>Información</h3>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Población:</strong> {{ country.population | number }}
+      </li>
+      <li class="list-group-item">
+        <strong>Capital:</strong> {{ country.capital[0] }}
+      </li>
+      <li class="list-group-item">
+        <strong>Región:</strong> {{ country.region }}
+      </li>
+      <li class="list-group-item">
+        <strong>Subregión:</strong> {{ country.subregion }}
+      </li>
+      <li class="list-group-item">
+        <strong>Latitud:</strong> {{ country.latlng[0] }}
+      </li>
+      <li class="list-group-item">
+        <strong>Longitud:</strong> {{ country.latlng[1] }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-12">
+    <h3>Traducciones</h3>
+    <div class="d-flex flex-wrap">
+      <span class="badge bg-primary me-2" *ngFor="let tld of country.tld">
+        {{ tld }}
+      </span>
+  </div>
+</div>

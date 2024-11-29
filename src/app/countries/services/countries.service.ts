@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
 
 import { Country } from '../interfaces/country';
 
@@ -24,6 +24,16 @@ export class CoutriesService {
 
   searchByRegion(term: string): Observable<Country[]> {
     const url = `${this.apiUrl}/region/${term}`;
-    return this.http.get<Country[]>(url).pipe(catchError(() => of([])))
+    return this.http.get<Country[]>(url).pipe(catchError(() => of([])));
+  }
+
+  searchCountry(term: string): Observable<Country | null> {
+    const url = `${this.apiUrl}/alpha/${term}`;
+    return this.http
+      .get<Country[]>(url)
+      .pipe(
+        map(countries => countries.shift() || null),
+        catchError(() => of({} as Country))
+      );
   }
 }
