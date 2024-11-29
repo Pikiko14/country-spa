@@ -1,4 +1,4 @@
-<div *ngIf="countries.length === 0; else table">
+<div *ngIf="countries.length === 0; else table" class="alert alert-warning">
     No hay países que mostrar.
 </div>
 
@@ -6,22 +6,26 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col text-center">Flag</th>
-        <th scope="col text-center">Name</th>
-        <th scope="col text-center">Population</th>
-        <th scope="col text-center">Region</th>
-        <th scope="col text-center">Capital</th>
+        <th class="col text-center">
+            #
+        </th>
+        <th class="col text-center">Flag</th>
+        <th class="col text-center">Name</th>
+        <th class="col text-center">Population</th>
+        <th class="col text-center">Region</th>
+        <th class="col text-center">Capital</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let country of countries">
-        <td class="">
+      <tr *ngFor="let country of countries; let i = index">
+        <td class="text-center">{{ i + 1 }}</td>
+        <td class="text-center">
           {{ country.flag }}
         </td>
-        <td class="">{{ country.name.common }}</td>
-        <td class="">{{ country.population | number }}</td>
-        <td class="">{{ country.region }}</td>
-        <td class="">{{ country.capital[0] }}</td>
+        <td class="text-center">{{ country.name.common }}</td>
+        <td class="text-center">{{ country.population | number }}</td>
+        <td class="text-center">{{ country.region }}</td>
+        <td class="text-center">{{ country.capital[0] }}</td>
       </tr>
     </tbody>
   </table>
